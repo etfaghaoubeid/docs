@@ -27,13 +27,12 @@ export async function getAllCDA(
 
   return data;
 }
-//cda
 export async function getCdaById(cdaId: string) {
   try {
     if (cdaId) {
       const { data } = await api<CDAResponse>({
         method: "get",
-        url: `/cda/${cdaId}`,
+        url: `/rangement/cda/${cdaId}`,
       });
 
       return data;
@@ -86,7 +85,7 @@ export async function checkPropductQuantity(
     CheckPropductQuantityBody
   >({
     method: "post",
-    url: "/cda/check/quantity",
+    url: "/cda/livreur/check/quantity",
     body: {
       ...tosaveData,
     },
@@ -113,7 +112,7 @@ export async function validateReception(tosaveData) {
 export async function aproveCda(cdaId: string) {
   const res = await api<HttpRespones<CDAListResponseData>>({
     method: "get",
-    url: `/cda/${cdaId}/approve`,
+    url: `/cda/livreur/${cdaId}/approve`,
   });
   console.log("APROVE CDA", res);
   return res;
