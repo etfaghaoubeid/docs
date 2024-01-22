@@ -5,7 +5,7 @@ import { Ambalage } from "./ambalage";
 export const AuthRoutes = () => {
   return (
     <Routes>
-      <Route path="register" element={<Ambalage />} />
+      <Route path="/" element={<Ambalage />} />
     </Routes>
   );
 };

@@ -10,10 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.6.2",
+    "@tanstack/react-query": "^5.17.12",
+    "@tanstack/react-query-devtools": "^5.17.12",
+    "axios": "^1.6.5",
+    "html5-qrcode": "^2.3.8",
+    "quagga": "^0.12.1",
     "react": "^18.2.0",
+    "react-barcode-reader": "^0.0.2",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.21.1"
+    "react-intersection-observer": "^9.5.3",
+    "react-qr-barcode-scanner": "^1.0.6",
+    "react-router-dom": "^6.21.1",
+    "react-webcam-barcode-scanner": "0.0.2-rc2"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

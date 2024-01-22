@@ -1,20 +1,41 @@
-import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
+import axios, {
+  AxiosRequestConfig,
+  AxiosResponse,
+  AxiosError,
+  InternalAxiosRequestConfig,
+} from "axios";
+import { BASE_URL } from "../config/env";
 
-const SERVER_API_URL = "";
 type Signal = {
   signal?: AbortSignal;
 };
 const axiosInstance = axios.create({
-  baseURL: SERVER_API_URL,
+  baseURL: BASE_URL,
 });
 
 const OnRequest = async (
   config: AxiosRequestConfig & Signal
 ): Promise<AxiosRequestConfig & Signal> => {
+  const userData = JSON.parse(localStorage.getItem("userData") as string);
+  if (userData) {
+    const Authorization = "Authorization";
+    config = {
+      ...config,
+      headers: {
+        [Authorization]: "Bearer " + userData.jwtToken,
+      },
+    };
+  }
   return config;
 };
 
 const onFulfilled = async (response: AxiosResponse) => {
+  if (
+    !response.data.success &&
+    response.data.message === "Identifiant ou mot de passe incorrect"
+  ) {
+    localStorage.removeItem("userData");
+  }
   return {
     data: response.data,
     status: response.status,
@@ -22,8 +43,14 @@ const onFulfilled = async (response: AxiosResponse) => {
     error: null,
   };
 };
-const onRejected = (error: AxiosError) => {
+const onRejected = (
+  error: AxiosError
+): Promise<InternalAxiosRequestConfig<AxiosError>> => {
   // console.log(Object.keys(error.request));
+  if (error.status === 401) {
+    localStorage.removeItem("userData");
+  }
+  console.log("ERRRRR", error);
   console.log("ONREJECT", {
     isAxiosError: error.isAxiosError,
     code: error.code,
@@ -39,8 +66,11 @@ const onRejected = (error: AxiosError) => {
     statusText: error.message,
     error: error.message,
     endPointUrl: error,
+    ...error,
   };
-  return Promise.reject(configError);
+  return Promise.reject(configError) as Promise<
+    InternalAxiosRequestConfig<AxiosError>
+  >;
 };
 axiosInstance.interceptors.request.use(OnRequest);
 axiosInstance.interceptors.response.use(onFulfilled, onRejected);

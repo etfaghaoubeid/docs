@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import fichier from "../../../assets/images/filtre.png";
 export const ProductDetails = () => {
   return (
     <Link
@@ -9,12 +9,14 @@ export const ProductDetails = () => {
       <div className="flex flex-row  justify-center ">
         <img className="h-20" src={fichier} />
         <div>
-          <span className="block text-sm">CDA : 1700083030</span>
-          <span className="block text-sm text-emerald-300">
-            Origine : Hub Casa - Californie
+          <span className="block text-sm">
+            Soundpeats Air3 Deluxe HS NOIR Hi-Res Audio Codec LDAC, Gaming Mode
           </span>
-          <span className="block text-sm">Vendeur : Kimoshop</span>
-          <span className="block text-sm">Articles : 56 </span>
+          <span className="block text-sm text-emerald-300">
+            Vendeur : Kimoshop
+          </span>
+          <span className="block text-sm">Quantité : 8 </span>
+          <span className="block text-sm">Litiges : 3 </span>
         </div>
       </div>
       <button className="bg-emerald-300 rounded-sm px-2 text-white">
