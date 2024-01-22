@@ -9,7 +9,7 @@ import Scanner from "./scanner";
 import scanIcon from "../../../assets/images/scan.png";
 import { Modal } from "../../../components/modal";
 import { ProductType } from "../types/cda";
-export const ReceptionProductList = () => {
+export const EntrepotProductList = () => {
   const [product, setproduct] = React.useState<ProductType | null>(null);
   const [productQuantity, setproductQuantity] = React.useState(0);
   const { cdaId } = useParams();
@@ -52,14 +52,16 @@ export const ReceptionProductList = () => {
       });
       if (res.success) {
         setIsOpen(false);
-        navigate(`/traitement-litige/${product.id}/${productQuantity}`);
+        navigate(-1);
         //navigate(`/traitement-litige/${product.id}`);
         return;
       }
     } catch (error) {
       console.log("errror", error.response.data?.message);
       setIsOpen(false);
-      seterrorMessage(error.response.data?.message);
+      // seterrorMessage(error.response.data?.message);
+      navigate(`/entrepot-traitement-litige/${product.id}/${productQuantity}`);
+      //n
     }
   };
   const onDetected = (result: string) => {

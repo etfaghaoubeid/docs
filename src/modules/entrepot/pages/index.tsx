@@ -46,7 +46,7 @@ export const Entrepot = () => {
       if (result && !camera) {
         const res = await getCdaById(result);
         if (res.success) {
-          navigate(`/reception-product-list/${result}`);
+          navigate(`/entrepot-product-list/${result}`);
         } else {
           seterrorMessage(res.response.data.message);
         }

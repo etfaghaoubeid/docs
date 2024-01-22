@@ -48,6 +48,7 @@ export const Reception = () => {
         if (res.success) {
           navigate(`/reception-product-list/${result}`);
         } else {
+          console.log(res, "RES CDA SACA");
           seterrorMessage(res.response.data.message);
         }
       }

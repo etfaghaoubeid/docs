@@ -17,6 +17,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Login } from "./modules/auth/pages";
 import { TraitementLitige } from "./modules/reception/pages/traitement-litige";
 import { Entrepot } from "./modules/entrepot/pages";
+import { EntrepotProductList } from "./modules/entrepot/pages/reception-product-list";
+import { EtrepotTraitementLitige } from "./modules/entrepot/pages/traitement-litige";
 
 function App() {
   return (
@@ -30,13 +32,21 @@ function App() {
               path="/traitement-litige/:productId/:toAddQuantity"
               element={<TraitementLitige />}
             />
-
+            <Route
+              path="/entrepot-traitement-litige/:productId/:toAddQuantity"
+              element={<EtrepotTraitementLitige />}
+            />
             <Route path="/" element={<Landing />} />
             <Route path="/rangementList" element={<RangementList />} />
             <Route
               path="/reception-product-list/:cdaId"
               element={<ReceptionProductList />}
             />
+            <Route
+              path="/entrepot-product-list/:cdaId"
+              element={<EntrepotProductList />}
+            />
+
             <Route path="/entrepot" element={<Entrepot />} />
             <Route path="/reception" element={<Reception />} />
             <Route path="/rangement-produit" element={<RangementProduit />} />

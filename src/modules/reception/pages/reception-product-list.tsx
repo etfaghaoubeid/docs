@@ -51,15 +51,16 @@ export const ReceptionProductList = () => {
         qte: productQuantity,
       });
       if (res.success) {
-        setIsOpen(false);
-        navigate(`/traitement-litige/${product.id}/${productQuantity}`);
+        // setIsOpen(false);
+        navigate(`/reception-product-list/${cdaId}`);
         //navigate(`/traitement-litige/${product.id}`);
         return;
       }
     } catch (error) {
       console.log("errror", error.response.data?.message);
       setIsOpen(false);
-      seterrorMessage(error.response.data?.message);
+      navigate(`/traitement-litige/${product.id}/${productQuantity}`);
+      // seterrorMessage(error.response.data?.message);
     }
   };
   const onDetected = (result: string) => {

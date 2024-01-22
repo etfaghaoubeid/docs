@@ -20,7 +20,6 @@ const Scanner = ({ onDetected }) => {
 
     //detecting boxes on stream
     Quagga.onProcessed((result) => {
-      console.log("RESULT", result);
       let drawingCtx = Quagga.canvas.ctx.overlay,
         drawingCanvas = Quagga.canvas.dom.overlay;
 

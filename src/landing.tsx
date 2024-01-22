@@ -10,8 +10,8 @@ export const Landing = () => {
             <img src={logo} alt="logo" className="w-40 h-20" />
           </div>
           {[
-            { name: "0 -Enterpo", path: "/entrepot" },
-            { name: "1 - Reception Xdock EMM", path: "/reception" },
+            { name: "0 - Drop Off ", path: "/reception" },
+            { name: "1 - Reception Xdock EMM", path: "/entrepot" },
             { name: "2 - Rangement CDA", path: "/rangement" },
             { name: "3 - Emballage", path: "/emballage" },
             {

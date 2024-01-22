@@ -12,7 +12,7 @@ enum Tab {
   DEFAULT_EMBALAGE = "defaultEmballage",
 }
 const activeTabClass = " border-b-4   border-emerald-400 font-bold";
-export const TraitementLitige = () => {
+export const EtrepotTraitementLitige = () => {
   const [attachements, setAttachements] = React.useState<{
     attachementsEndomageFiles: null | [];
     attachementsDefautEmbalageFiles: null | [];
