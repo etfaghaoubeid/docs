@@ -67,7 +67,13 @@ const Scanner = ({ onDetected }) => {
     };
   }, []);
 
-  return <div id="interactive" className="viewport" />;
+  return (
+    <div
+      // style={{ height: "23px", width: "100%" }}
+      id="interactive"
+      className="viewport"
+    />
+  );
 };
 
 export default Scanner;

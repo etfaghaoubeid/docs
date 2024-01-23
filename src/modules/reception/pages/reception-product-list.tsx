@@ -51,7 +51,7 @@ export const ReceptionProductList = () => {
         qte: productQuantity,
       });
       if (res.success) {
-        // setIsOpen(false);
+        setIsOpen(false);
         navigate(`/reception-product-list/${cdaId}`);
         //navigate(`/traitement-litige/${product.id}`);
         return;
@@ -202,7 +202,13 @@ export const ReceptionProductList = () => {
         <button
           className=" text-white bg-teal-400  rounded-3xl py-2.5 px-5"
           onClick={async () => {
-            aproveCda(cdaId as string);
+            const res = await aproveCda(cdaId as string);
+            console.log("DDDDDDD", res, "RESDDDDD");
+            if (res.data.success) {
+              navigate(`/reception`);
+            } else {
+              seterrorMessage(res?.data?.message);
+            }
           }}
         >
           <span className=" mr-2">

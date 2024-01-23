@@ -110,10 +110,15 @@ export async function validateReception(tosaveData) {
 //cda/livreur/CDA5LX39O10117002448518/approve
 
 export async function aproveCda(cdaId: string) {
-  const res = await api<HttpRespones<CDAListResponseData>>({
-    method: "get",
-    url: `/cda/livreur/${cdaId}/approve`,
-  });
-  console.log("APROVE CDA", res);
-  return res;
+  try {
+    const res = await api<HttpRespones<CDAListResponseData>>({
+      method: "get",
+      url: `/cda/livreur/${cdaId}/approve`,
+    });
+    console.log("APROVE CDA", res);
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
 }

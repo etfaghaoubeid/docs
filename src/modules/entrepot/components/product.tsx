@@ -21,9 +21,12 @@ export const Product = ({
   const [result, setResult] = React.useState(null);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [errorMessage, seterrorMessage] = React.useState("");
+  console.log("Product ", product);
 
   console.log(isOpen, "isopen");
-  const [productQuantity, setproductQuantity] = React.useState(product.qte);
+  const [productQuantity, setproductQuantity] = React.useState(
+    product.qteLivreur
+  );
   const ref = React.useRef<HTMLElement>();
   //   useClickOutside(ref, () => setIsOpen(false));
   const navigate = useNavigate();

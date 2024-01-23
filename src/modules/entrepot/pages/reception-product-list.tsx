@@ -32,7 +32,7 @@ export const EntrepotProductList = () => {
         if (product) {
           setproduct(product);
           setIsOpen(true);
-          setproductQuantity(product.qte);
+          setproductQuantity(product.qteLivreur);
           console.log("Product Atihg", product);
           return;
         } else {
