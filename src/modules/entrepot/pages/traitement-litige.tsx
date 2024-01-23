@@ -6,6 +6,7 @@ import { NonRecus } from "../components/non-recus";
 import { useParams } from "react-router-dom";
 import { queryClient } from "../../../lib/queryClient";
 import { ProductType } from "../types/cda";
+import { Gard } from "../../../components/gard";
 enum Tab {
   ENDOMMAGE = "endommage",
   NON_RECU = "nonRecu",
@@ -42,7 +43,7 @@ export const EtrepotTraitementLitige = () => {
   );
   console.log("Product", product);
   return (
-    <>
+    <Gard>
       <Header />
 
       <div className=" p-5">
@@ -124,6 +125,6 @@ export const EtrepotTraitementLitige = () => {
           )}
         </div>
       </div>
-    </>
+    </Gard>
   );
 };

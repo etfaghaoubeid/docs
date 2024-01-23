@@ -10,6 +10,7 @@ import { CdaCard } from "../components/cda-card";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Scanner from "./scanner";
 import { Modal } from "../../../components/modal";
+import { Gard } from "../../../components/gard";
 export const Reception = () => {
   const [errorMessage, seterrorMessage] = React.useState("");
 
@@ -56,66 +57,68 @@ export const Reception = () => {
   }, [result]);
 
   return (
-    <div className="  bg-neutral-50">
-      <Header />
-      {camera && <Scanner onDetected={onDetected} />}
-      <div className="p-2">
-        <div className="flex justify-between items-center my-2">
-          <div>
-            <span>Réception CDA EMM </span>
+    <Gard>
+      <div className="  bg-neutral-50">
+        <Header />
+        {camera && <Scanner onDetected={onDetected} />}
+        <div className="p-2">
+          <div className="flex justify-between items-center my-2">
+            <div>
+              <span>Réception CDA EMM </span>
+            </div>
+            <img className="w-5" src={filter} />
           </div>
-          <img className="w-5" src={filter} />
-        </div>
-        <div className=" bg-white flex justify-between items-center border-solid border-2 border-gray-300 w-full p-1 rounded-md ">
-          <input
-            value={result}
-            onChange={(e) => setResult(e.target.value)}
-            // onClick={() => setCamera(true)}
-            // onClick={() => navigate("/reception-product-list")}
-            className=" w-full p-2 rounded-md   
+          <div className=" bg-white flex justify-between items-center border-solid border-2 border-gray-300 w-full p-1 rounded-md ">
+            <input
+              value={result}
+              onChange={(e) => setResult(e.target.value)}
+              // onClick={() => setCamera(true)}
+              // onClick={() => navigate("/reception-product-list")}
+              className=" w-full p-2 rounded-md   
             outline-grey-50   outline-none "
-            placeholder="Scanner une CDA ..."
-          />
-          <img
-            className=" h-8 w-8"
-            src={scanIcon}
-            onClick={() => setCamera(true)}
-          />
-        </div>
-      </div>
-      <div className="p-2">
-        <div>
-          {data?.pages?.map((item) => {
-            console.log("ITEM ", item);
-            return (
-              <React.Fragment>
-                {item.map((it) => {
-                  return <CdaCard ref={ref} cda={it} key={it.id} />;
-                })}
-              </React.Fragment>
-            );
-          })}
-        </div>
-      </div>
-      <Modal isOpen={errorMessage}>
-        <div className="bg-white rounded-md">
-          <div className="flex justify-end ">
-            <button
-              className="bg-slate-300 rounded-md p-2"
-              onClick={() => seterrorMessage("")}
-            >
-              X
-            </button>
+              placeholder="Scanner une CDA ..."
+            />
+            <img
+              className=" h-8 w-8"
+              src={scanIcon}
+              onClick={() => setCamera(true)}
+            />
           </div>
-          <div className="flex justify-center items-center p-3">
-            <span>{errorMessage} </span>
-          </div>
+        </div>
+        <div className="p-2">
           <div>
-            <button>Anuller</button>
-            <button>Anuller</button>
+            {data?.pages?.map((item) => {
+              console.log("ITEM ", item);
+              return (
+                <React.Fragment>
+                  {item.map((it) => {
+                    return <CdaCard ref={ref} cda={it} key={it.id} />;
+                  })}
+                </React.Fragment>
+              );
+            })}
           </div>
         </div>
-      </Modal>
-    </div>
+        <Modal isOpen={errorMessage}>
+          <div className="bg-white rounded-md">
+            <div className="flex justify-end ">
+              <button
+                className="bg-slate-300 rounded-md p-2"
+                onClick={() => seterrorMessage("")}
+              >
+                X
+              </button>
+            </div>
+            <div className="flex justify-center items-center p-3">
+              <span>{errorMessage} </span>
+            </div>
+            <div>
+              <button>Anuller</button>
+              <button>Anuller</button>
+            </div>
+          </div>
+        </Modal>
+      </div>
+    </Gard>
   );
 };

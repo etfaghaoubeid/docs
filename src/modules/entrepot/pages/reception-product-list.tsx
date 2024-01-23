@@ -9,6 +9,7 @@ import Scanner from "./scanner";
 import scanIcon from "../../../assets/images/scan.png";
 import { Modal } from "../../../components/modal";
 import { ProductType } from "../types/cda";
+import { Gard } from "../../../components/gard";
 export const EntrepotProductList = () => {
   const [product, setproduct] = React.useState<ProductType | null>(null);
   const [productQuantity, setproductQuantity] = React.useState(0);
@@ -84,7 +85,7 @@ export const EntrepotProductList = () => {
   };
 
   return (
-    <>
+    <Gard>
       <Header />
 
       {camera && <Scanner onDetected={onDetected} />}
@@ -212,6 +213,6 @@ export const EntrepotProductList = () => {
           Valider la réception CDA
         </button>
       </div>
-    </>
+    </Gard>
   );
 };

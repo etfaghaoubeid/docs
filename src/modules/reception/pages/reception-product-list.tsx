@@ -9,6 +9,7 @@ import Scanner from "./scanner";
 import scanIcon from "../../../assets/images/scan.png";
 import { Modal } from "../../../components/modal";
 import { ProductType } from "../types/cda";
+import { Gard } from "../../../components/gard";
 export const ReceptionProductList = () => {
   const [product, setproduct] = React.useState<ProductType | null>(null);
   const [productQuantity, setproductQuantity] = React.useState(0);
@@ -83,7 +84,7 @@ export const ReceptionProductList = () => {
   };
 
   return (
-    <>
+    <Gard>
       <Header />
 
       {camera && <Scanner onDetected={onDetected} />}
@@ -217,6 +218,6 @@ export const ReceptionProductList = () => {
           Valider la réception CDA
         </button>
       </div>
-    </>
+    </Gard>
   );
 };
