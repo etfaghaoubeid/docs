@@ -14,7 +14,6 @@ export const ReceptionProductList = () => {
   const [product, setproduct] = React.useState<ProductType | null>(null);
   const [productQuantity, setproductQuantity] = React.useState(0);
   const { cdaId } = useParams();
-  console.log(cdaId, "iii");
   const [isOpen, setIsOpen] = React.useState(false);
   const [errorMessage, seterrorMessage] = React.useState("");
   const [camera, setCamera] = React.useState(false);
@@ -25,6 +24,7 @@ export const ReceptionProductList = () => {
     queryKey: ["cda"],
     queryFn: () => getCdaById(cdaId as string),
   });
+  const [cdaProductList, setcdaProductList] = useState([]);
 
   React.useEffect(() => {
     (async () => {
@@ -82,6 +82,13 @@ export const ReceptionProductList = () => {
     }
     return 0;
   };
+  React.useEffect(() => {
+    (async () => {
+      const { data } = await getCdaById(cdaId as string);
+      console.log(data, "ddd");
+      setcdaProductList(data.items);
+    })();
+  }, [cdaId]);
 
   return (
     <Gard>
@@ -117,7 +124,7 @@ export const ReceptionProductList = () => {
       </div>
       <div className="p-5">
         <div>
-          {data?.data?.items?.map((product) => {
+          {cdaProductList?.map((product) => {
             return (
               <Product
                 numbCda={result}

@@ -57,7 +57,7 @@ export const Reception = () => {
   }, [result]);
 
   return (
-    <Gard>
+    <>
       <div className="  bg-neutral-50">
         <Header />
         {camera && <Scanner onDetected={onDetected} />}
@@ -119,6 +119,6 @@ export const Reception = () => {
           </div>
         </Modal>
       </div>
-    </Gard>
+    </>
   );
 };

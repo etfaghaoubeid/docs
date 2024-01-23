@@ -1,8 +1,8 @@
 {
   "inputStream": {
     "type": "LiveStream",
+
     "constraints": {
-      "facingMode": "environment",
       "width": { "min": 450 },
       "height": { "min": 300 },
       "facingMode": "environment",
