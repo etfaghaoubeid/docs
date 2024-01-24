@@ -8,9 +8,9 @@ import { CDAListResponseData } from "../types/cda";
 import { getAllCDA, getCdaById } from "../api/cda";
 import { CdaCard } from "../components/cda-card";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import Scanner from "./scanner";
 import { Modal } from "../../../components/modal";
 import { Gard } from "../../../components/gard";
+import { Scanner } from "../../../components/scanner";
 export const Reception = () => {
   const [errorMessage, seterrorMessage] = React.useState("");
 
@@ -100,21 +100,17 @@ export const Reception = () => {
           </div>
         </div>
         <Modal isOpen={errorMessage}>
-          <div className="bg-white rounded-md">
-            <div className="flex justify-end ">
-              <button
-                className="bg-slate-300 rounded-md p-2"
-                onClick={() => seterrorMessage("")}
-              >
-                X
-              </button>
-            </div>
+          <div className="bg-white rounded-md py-4">
             <div className="flex justify-center items-center p-3">
-              <span>{errorMessage} </span>
+              <span className="  font-semibold">{errorMessage} </span>
             </div>
-            <div>
-              <button>Anuller</button>
-              <button>Anuller</button>
+            <div className="flex justify-center">
+              <button
+                onClick={() => seterrorMessage("")}
+                className="bg-teal-400 px-2 py-1 rounded-md text-white"
+              >
+                Anuller
+              </button>
             </div>
           </div>
         </Modal>

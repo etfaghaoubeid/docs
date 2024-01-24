@@ -1,8 +1,8 @@
 import React from "react";
-import config from "./config.json";
 import Quagga from "quagga";
-
-const Scanner = ({ onDetected }) => {
+import config from "./config.json";
+import "./style.css";
+export const Scanner = ({ onDetected }) => {
   const detected = (result) => {
     onDetected(result.codeResult.code);
   };
@@ -26,8 +26,8 @@ const Scanner = ({ onDetected }) => {
       if (result) {
         if (result.boxes) {
           drawingCtx.clearRect(
-            0,
-            0,
+            4,
+            2,
             Number(drawingCanvas.getAttribute("width")),
             Number(drawingCanvas.getAttribute("height"))
           );
@@ -69,13 +69,7 @@ const Scanner = ({ onDetected }) => {
 
   return (
     <div>
-      <div
-        // style={{ height: "23px", width: "100%" }}
-        id="interactive"
-        className="viewport"
-      />
+      <div id="interactive" className="viewport" />
     </div>
   );
 };
-
-export default Scanner;

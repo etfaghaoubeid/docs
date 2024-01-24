@@ -204,7 +204,13 @@ export const EntrepotProductList = () => {
         <button
           className=" text-white bg-teal-400  rounded-3xl py-2.5 px-5"
           onClick={async () => {
-            aproveCda(cdaId as string);
+            const res = await aproveCda(cdaId as string);
+            console.log("DDDDDDD", res, "RESDDDDD");
+            if (res.data.success) {
+              navigate(`/entrepot`);
+            } else {
+              seterrorMessage(res?.data?.message);
+            }
           }}
         >
           <span className=" mr-2">

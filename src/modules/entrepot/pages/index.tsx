@@ -113,7 +113,22 @@ export const Entrepot = () => {
             </div>
             <div>
               <button>Anuller</button>
-              <button>Anuller</button>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal isOpen={errorMessage}>
+          <div className="bg-white rounded-md py-4">
+            <div className="flex justify-center items-center p-3">
+              <span className="  font-semibold">{errorMessage} </span>
+            </div>
+            <div className="flex justify-center">
+              <button
+                onClick={() => seterrorMessage("")}
+                className="bg-teal-400 px-2 py-1 rounded-md text-white"
+              >
+                Anuller
+              </button>
             </div>
           </div>
         </Modal>
