@@ -34,7 +34,6 @@ export const ReceptionProductList = () => {
           setproduct(product);
           setIsOpen(true);
           setproductQuantity(product.qte);
-          console.log("Product Atihg", product);
           return;
         } else {
           seterrorMessage("product does not exist");
@@ -87,7 +86,7 @@ export const ReceptionProductList = () => {
       console.log(data, "ddd");
       setcdaProductList(data.items);
     })();
-  }, [cdaId]);
+  }, [cdaId, isOpen]);
 
   return (
     <Gard>

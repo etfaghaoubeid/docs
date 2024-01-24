@@ -56,6 +56,19 @@ export const Reception = () => {
     })();
   }, [result]);
 
+  const handleCdaSubmit = async (e: InputEvent) => {
+    e.preventDefault();
+    if (result && !camera) {
+      const res = await getCdaById(result);
+      if (res.success) {
+        navigate(`/reception-product-list/${result}`);
+      } else {
+        console.log(res, "RES CDA SACA");
+        seterrorMessage(res.response.data.message);
+      }
+    }
+  };
+
   return (
     <>
       <div className="  bg-neutral-50">
@@ -70,6 +83,7 @@ export const Reception = () => {
           </div>
           <div className=" bg-white flex justify-between items-center border-solid border-2 border-gray-300 w-full p-1 rounded-md ">
             <input
+              onSubmit={(e) => handleCdaSubmit(e)}
               value={result}
               onChange={(e) => setResult(e.target.value)}
               // onClick={() => setCamera(true)}
@@ -81,7 +95,7 @@ export const Reception = () => {
             <img
               className=" h-8 w-8"
               src={scanIcon}
-              onClick={() => setCamera(true)}
+              onClick={() => setCamera(!camera)}
             />
           </div>
         </div>

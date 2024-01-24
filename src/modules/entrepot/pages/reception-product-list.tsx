@@ -1,15 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "../../../components/header";
 import rightArrow from "../../../assets/images/right.png";
-import React, { useState } from "react";
+import React from "react";
 import { Product } from "../components/product";
 import { aproveCda, checkPropductQuantity, getCdaById } from "../api/cda";
 import { useQuery } from "@tanstack/react-query";
-import Scanner from "./scanner";
 import scanIcon from "../../../assets/images/scan.png";
 import { Modal } from "../../../components/modal";
 import { ProductType } from "../types/cda";
 import { Gard } from "../../../components/gard";
+import { Scanner } from "../../../components/scanner";
 export const EntrepotProductList = () => {
   const [product, setproduct] = React.useState<ProductType | null>(null);
   const [productQuantity, setproductQuantity] = React.useState(0);

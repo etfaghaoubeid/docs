@@ -8,9 +8,10 @@ import { CDAListResponseData } from "../types/cda";
 import { getAllCDA, getCdaById } from "../api/cda";
 import { CdaCard } from "../components/cda-card";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import Scanner from "./scanner";
+
 import { Modal } from "../../../components/modal";
 import { Gard } from "../../../components/gard";
+import { Scanner } from "../../../components/scanner";
 export const Entrepot = () => {
   const [errorMessage, seterrorMessage] = React.useState("");
 
@@ -80,7 +81,7 @@ export const Entrepot = () => {
             <img
               className=" h-8 w-8"
               src={scanIcon}
-              onClick={() => setCamera(true)}
+              onClick={() => setCamera(!camera)}
             />
           </div>
         </div>
