@@ -63,7 +63,7 @@ export const NonRecus = ({
           <div>
             {" "}
             <input
-              className="  w-1/3 bg-gray-50 rounded-md px-2 py-2  focus:border-gray-500  border-gray-50 border-2 focus:border-gray-2000   w-full  outline-gray-300"
+              className="  w-1/3 bg-gray-50 rounded-md px-2 py-2  focus:border-gray-500  border-gray-200 border-2 focus:border-gray-2000   outline-gray-300"
               value={quantity.qteNotReceived as any}
               onChange={(e) =>
                 setQuantity((prev) => ({

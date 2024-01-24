@@ -72,7 +72,13 @@ export const Endommage = ({
     let base64 = await convertBase64(e.target.files[0]);
     base64 = base64.split(",")[1];
     console.log("URL.createObjectURL(e.target.files[0]");
-    setImage((p) => [...p, URL.createObjectURL(e.target.files[0])]);
+    setImage((prev) => [
+      ...prev,
+      {
+        fileName: e.target.files[0].name,
+        img: URL.createObjectURL(e.target.files[0]),
+      },
+    ]);
     setfile((prev) => [...prev, , URL.createObjectURL(e.target.files[0])]);
     setAttachements((prev) => {
       console.log(
@@ -105,10 +111,69 @@ export const Endommage = ({
       };
     });
   }
+  console.log("render ");
+  // Array(parseInt(quantity.qteEndomage))
+  //   .fill("Re")
+  //   .map((item, key) => {
+  //     if (attachements?.attachementsEndomageFiles) {
+  //       const obj = image.find((it, index) => {
+  //         // console.log("INDEX", index);
+  //         if (
+  //           it.fileName ===
+  //           attachements.attachementsEndomageFiles[index].fileName
+  //         ) {
+  //           return image[index];
+  //         }
+  //       });
+  //       console.log("ogj", obj["img"]);
+  //       return obj;
+  //     }
+  //   });
+  const extractImageUrl = (key) => {
+    if (attachements?.attachementsEndomageFiles) {
+      const exist = attachements?.attachementsEndomageFiles[key];
+      if (exist && image[key]) {
+        return image[key]["img"];
+      }
+    }
+  };
+  const removeImage = (key) => {
+    const existImage = image[key];
+    const existAttachement = attachements.attachementsEndomageFiles[key];
 
-  //  console.log("produt", attachements);
+    if (existImage && existAttachement) {
+      const filtedAta = attachements.attachementsEndomageFiles.filter(
+        (ite) => ite.fileName === existAttachement.fileName
+      );
+      const filtredImages = attachements.attachementsEndomageFiles.filter(
+        (ite) => ite.fileName === existAttachement.fileName
+      );
+      console.log(
+        "filtredImages",
+        filtredImages,
+        "filtedAta",
+        filtedAta,
+        "qunatity",
+        quantity.qteEndomage
+      );
+      setImage(filtredImages);
+      setAttachements((prev) => {
+        return {
+          ...prev,
+          attachementsEndomageFiles: filtedAta,
+        };
+      });
+    }
+
+    setQuantity((prev) => ({ ...prev, qteEndomage: quantity.qteEndomage - 1 }));
+    //   console.log("quntity", quantity);
+    // }
+  };
+  // console.log("gogellllll", extractImageUrl());
+  console.log(attachements, "aaaa");
   return (
     <div>
+      {/* {extractImageUrl && <img src={`${extractImageUrl}`} />} */}
       <div className="mb-4  flex justify-start gap-4 mt-5">
         <img src={product?.img} className=" h-20 w-20" alt="produt" />
         <div>
@@ -167,7 +232,21 @@ export const Endommage = ({
                       ) : (
                         <img className="h-8 w-8" src={image[key]} alt="dd" />
                       )} */}
-                      <img className="h-20 w-20" src={image[key]} alt="dd" />
+                      <button
+                        className=" bg-teal-500 rounded-md px-1 text-white"
+                        onClick={() => removeImage(key)}
+                      >
+                        x
+                      </button>
+                      {attachements.attachementsEndomageFiles.length ? (
+                        <img
+                          src={`${extractImageUrl(key)}`}
+                          className="h-20 w-20"
+                          alt="dd"
+                        />
+                      ) : (
+                        <div className="h-20 w-20"></div>
+                      )}
                     </div>
 
                     <input
