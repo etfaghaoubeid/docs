@@ -65,12 +65,15 @@ export const NonRecus = ({
             <input
               className="  w-1/3 bg-gray-50 rounded-md px-2 py-2  focus:border-gray-500  border-gray-200 border-2 focus:border-gray-2000   outline-gray-300"
               value={quantity.qteNotReceived as any}
-              onChange={(e) =>
-                setQuantity((prev) => ({
-                  ...prev,
-                  qteNotReceived: e.target.value as any,
-                }))
-              }
+              onChange={(e) => {
+                const re = /^[0-9\b]+$/;
+                if (e.target.value === "" || re.test(e.target.value)) {
+                  setQuantity((prev) => ({
+                    ...prev,
+                    qteNotReceived: e.target.value as any,
+                  }));
+                }
+              }}
               placeholder="Nombre d'articles en litige ... "
               type="text"
             />

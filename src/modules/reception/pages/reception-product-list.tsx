@@ -45,7 +45,6 @@ export const ReceptionProductList = () => {
 
   const handleProductQuantityCheck = async () => {
     try {
-      console.log("CDID", cdaId);
       const res = await checkPropductQuantity({
         numCda: cdaId as string,
         lineId: product.id as number,

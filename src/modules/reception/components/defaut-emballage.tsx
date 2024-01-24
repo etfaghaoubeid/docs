@@ -14,6 +14,8 @@ type DefautEmballagePropsType = {
 
   attachements: any;
   setAttachements: (e: any) => void;
+  images: any;
+  setImages: (e: any) => void;
 };
 export const DefautEmballage = ({
   product,
@@ -21,6 +23,8 @@ export const DefautEmballage = ({
   setQuantity,
   attachements,
   setAttachements,
+  images,
+  setImages,
 }: DefautEmballagePropsType) => {
   const [image, setImage] = React.useState([]);
   const navigate = useNavigate();
@@ -71,7 +75,16 @@ export const DefautEmballage = ({
     let base64 = await convertBase64(e.target.files[0]);
     base64 = base64.split(",")[1];
     console.log("URL.createObjectURL(e.target.files[0]");
-    setImage((p) => [...p, URL.createObjectURL(e.target.files[0])]);
+    setImages((prev) => ({
+      ...prev,
+      attachementsDefautEmbalageFiles: [
+        ...prev.attachementsDefautEmbalageFiles,
+        {
+          fileName: e.target.files[0].name,
+          img: URL.createObjectURL(e.target.files[0]),
+        },
+      ],
+    }));
     setfile((prev) => [...prev, , URL.createObjectURL(e.target.files[0])]);
     setAttachements((prev) => {
       return {
@@ -98,6 +111,53 @@ export const DefautEmballage = ({
       };
     });
   }
+  const extractImageUrl = (key: number) => {
+    if (attachements?.attachementsDefautEmbalageFiles) {
+      const exist = attachements?.attachementsDefautEmbalageFiles[key];
+      if (exist && images.attachementsDefautEmbalageFiles[key]) {
+        return images.attachementsDefautEmbalageFiles[key]["img"];
+      }
+    }
+  };
+
+  const removeImage = (key) => {
+    const existImage = images.attachementsDefautEmbalageFiles[key];
+    const existAttachement = attachements.attachementsDefautEmbalageFiles[key];
+
+    if (existImage && existAttachement) {
+      const filtedAta = attachements.attachementsDefautEmbalageFiles.filter(
+        (ite) => ite.fileName !== existAttachement.fileName
+      );
+      const filtredImages = images.attachementsEndomageFiles.filter(
+        (ite) => ite.fileName !== existAttachement.fileName
+      );
+      console.log(
+        "filtredImages",
+        filtredImages,
+        "filtedAta",
+        filtedAta,
+        "qunatity",
+        quantity.qteEndomage
+      );
+      setImages((prev) => {
+        return {
+          ...prev,
+          attachementsDefautEmbalageFiles: filtredImages,
+        };
+      });
+      setAttachements((prev) => {
+        return {
+          ...prev,
+          attachementsDefautEmbalageFiles: filtedAta,
+        };
+      });
+    }
+
+    setQuantity((prev) => ({
+      ...prev,
+      qteDefautEmbalage: quantity.qteDefautEmbalage - 1,
+    }));
+  };
   return (
     <div>
       <div className="mb-4  flex justify-start gap-4 mt-5">
@@ -109,12 +169,15 @@ export const DefautEmballage = ({
             <input
               className="  w-1/3 bg-gray-50 rounded-md px-2 py-2  focus:border-gray-500  border-gray-200 border-2 focus:border-gray-2000  outline-gray-300"
               value={quantity.qteDefautEmbalage}
-              onChange={(e) =>
-                setQuantity((prev) => ({
-                  ...prev,
-                  qteDefautEmbalage: e.target.value as any,
-                }))
-              }
+              onChange={(e) => {
+                const re = /^[0-9\b]+$/;
+                if (e.target.value === "" || re.test(e.target.value)) {
+                  setQuantity((prev) => ({
+                    ...prev,
+                    qteDefautEmbalage: e.target.value as any,
+                  }));
+                }
+              }}
               placeholder="Nombre d'articles en litige ... "
               type="text"
             />
@@ -137,7 +200,21 @@ export const DefautEmballage = ({
                     className="flex flex-col items-center justify-center w-full h-20 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 hover:bg-gray-100"
                   >
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <img className="h-20 w-20" src={image[key]} alt="dd" />
+                      <button
+                        className=" bg-teal-500 rounded-md px-1 text-white"
+                        onClick={() => removeImage(key)}
+                      >
+                        x
+                      </button>
+                      {attachements.attachementsDefautEmbalageFiles.length ? (
+                        <img
+                          src={`${extractImageUrl(key)}`}
+                          className="h-20 w-20"
+                          alt="dd"
+                        />
+                      ) : (
+                        <div className="h-20 w-20"></div>
+                      )}
                     </div>
 
                     <input

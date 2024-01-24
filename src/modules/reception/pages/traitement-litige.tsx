@@ -14,7 +14,15 @@ enum Tab {
 }
 const activeTabClass = " border-b-4   border-emerald-400 font-bold";
 export const TraitementLitige = () => {
+  const [image, setImage] = React.useState([]);
   const [attachements, setAttachements] = React.useState<{
+    attachementsEndomageFiles: null | [];
+    attachementsDefautEmbalageFiles: null | [];
+  }>({
+    attachementsEndomageFiles: [],
+    attachementsDefautEmbalageFiles: [],
+  });
+  const [images, setImages] = React.useState<{
     attachementsEndomageFiles: null | [];
     attachementsDefautEmbalageFiles: null | [];
   }>({
@@ -27,21 +35,15 @@ export const TraitementLitige = () => {
   const [attachementsEndomageFiles, setAttachementsEndomageFiles] =
     React.useState([]);
   const [quantity, setQuantity] = React.useState({
-    qteNotReceived: 0,
-    qteDefautEmbalage: 0,
-    qteEndomage: 0,
+    qteNotReceived: null,
+    qteDefautEmbalage: null,
+    qteEndomage: null,
   });
   // const product = {};
   const [currentTab, setcurrentTab] = React.useState<Tab>(Tab.ENDOMMAGE);
   const { productId, toAddQuantity } = useParams();
   const product: ProductType = data.items.find((item) => item.id == productId);
-  console.log("toAddQuantity", toAddQuantity);
-  console.log(
-    "ddd",
 
-    product.qte - product.qteLivreur
-  );
-  console.log("Product", product);
   return (
     <Gard>
       <>
@@ -100,6 +102,8 @@ export const TraitementLitige = () => {
                 product={product}
                 setQuantity={setQuantity}
                 quantity={quantity}
+                images={images}
+                setImages={setImages}
                 litigeQuantity={toAddQuantity}
                 attachementsEndomageFiles={attachementsEndomageFiles}
                 setAttachementsEndomageFiles={setAttachementsEndomageFiles}
@@ -120,6 +124,8 @@ export const TraitementLitige = () => {
                 }
                 attachements={attachements}
                 setAttachements={setAttachements}
+                images={images}
+                setImages={setImages}
               />
             ) : (
               <NonRecus

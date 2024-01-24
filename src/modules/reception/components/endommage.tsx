@@ -14,6 +14,8 @@ type EndommagePropsType = {
   setQuantity: (e: InputEvent) => void;
   attachementsEndomageFiles: any;
   setAttachements: (e: any) => void;
+  images: any;
+  setImages: (e: any) => void;
 };
 export const Endommage = ({
   product,
@@ -24,9 +26,10 @@ export const Endommage = ({
   litigeQuantity,
   attachementsEndomageFiles,
   setAttachementsEndomageFiles,
+  images,
+  setImages,
 }: EndommagePropsType) => {
   const navigate = useNavigate();
-  const [image, setImage] = React.useState([]);
   const [file, setfile] = React.useState([]);
   const [errorMessage, seterrorMessage] = React.useState("");
   const handleSubmitData = async (e: FormEvent) => {
@@ -72,13 +75,16 @@ export const Endommage = ({
     let base64 = await convertBase64(e.target.files[0]);
     base64 = base64.split(",")[1];
     console.log("URL.createObjectURL(e.target.files[0]");
-    setImage((prev) => [
+    setImages((prev) => ({
       ...prev,
-      {
-        fileName: e.target.files[0].name,
-        img: URL.createObjectURL(e.target.files[0]),
-      },
-    ]);
+      attachementsEndomageFiles: [
+        ...prev.attachementsEndomageFiles,
+        {
+          fileName: e.target.files[0].name,
+          img: URL.createObjectURL(e.target.files[0]),
+        },
+      ],
+    }));
     setfile((prev) => [...prev, , URL.createObjectURL(e.target.files[0])]);
     setAttachements((prev) => {
       console.log(
@@ -111,42 +117,25 @@ export const Endommage = ({
       };
     });
   }
-  console.log("render ");
-  // Array(parseInt(quantity.qteEndomage))
-  //   .fill("Re")
-  //   .map((item, key) => {
-  //     if (attachements?.attachementsEndomageFiles) {
-  //       const obj = image.find((it, index) => {
-  //         // console.log("INDEX", index);
-  //         if (
-  //           it.fileName ===
-  //           attachements.attachementsEndomageFiles[index].fileName
-  //         ) {
-  //           return image[index];
-  //         }
-  //       });
-  //       console.log("ogj", obj["img"]);
-  //       return obj;
-  //     }
-  //   });
-  const extractImageUrl = (key) => {
+
+  const extractImageUrl = (key: number) => {
     if (attachements?.attachementsEndomageFiles) {
       const exist = attachements?.attachementsEndomageFiles[key];
-      if (exist && image[key]) {
-        return image[key]["img"];
+      if (exist && images.attachementsEndomageFiles[key]) {
+        return images.attachementsEndomageFiles[key]["img"];
       }
     }
   };
   const removeImage = (key) => {
-    const existImage = image[key];
+    const existImage = images.attachementsEndomageFiles[key];
     const existAttachement = attachements.attachementsEndomageFiles[key];
 
     if (existImage && existAttachement) {
       const filtedAta = attachements.attachementsEndomageFiles.filter(
-        (ite) => ite.fileName === existAttachement.fileName
+        (ite) => ite.fileName !== existAttachement.fileName
       );
-      const filtredImages = attachements.attachementsEndomageFiles.filter(
-        (ite) => ite.fileName === existAttachement.fileName
+      const filtredImages = images.attachementsEndomageFiles.filter(
+        (ite) => ite.fileName !== existAttachement.fileName
       );
       console.log(
         "filtredImages",
@@ -156,7 +145,12 @@ export const Endommage = ({
         "qunatity",
         quantity.qteEndomage
       );
-      setImage(filtredImages);
+      setImages((prev) => {
+        return {
+          ...prev,
+          attachementsEndomageFiles: filtredImages,
+        };
+      });
       setAttachements((prev) => {
         return {
           ...prev,
@@ -166,11 +160,8 @@ export const Endommage = ({
     }
 
     setQuantity((prev) => ({ ...prev, qteEndomage: quantity.qteEndomage - 1 }));
-    //   console.log("quntity", quantity);
-    // }
   };
-  // console.log("gogellllll", extractImageUrl());
-  console.log(attachements, "aaaa");
+
   return (
     <div>
       {/* {extractImageUrl && <img src={`${extractImageUrl}`} />} */}
