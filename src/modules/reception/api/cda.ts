@@ -108,7 +108,7 @@ export async function validateReception(tosaveData) {
   return data;
 }
 //cda/livreur/CDA5LX39O10117002448518/approve
-
+//cda/livreur/CDA08127002448527/approve
 export async function aproveCda(cdaId: string) {
   try {
     const res = await api<HttpRespones<CDAListResponseData>>({

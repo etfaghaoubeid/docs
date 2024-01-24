@@ -46,15 +46,22 @@ export const DefautEmballage = ({
         parseInt(quantity.qteEndomage) +
         parseInt(quantity.qteNotReceived)
     ) {
-      //seterrorMessage("Quantity incrorrect");
-      // return;
+      seterrorMessage("Quantity incrorrect");
+      return;
     }
     try {
       const res = await saveLitigeData({
         lineId: product.id,
-        qteNotReceived: parseInt(quantity.qteNotReceived),
-        qteEndomage: parseInt(quantity.qteEndomage),
-        qteDefautEmbalage: parseInt(quantity.qteDefautEmbalage),
+        qteNotReceived:
+          quantity.qteNotReceived == null
+            ? 0
+            : parseInt(quantity.qteNotReceived),
+        qteEndomage:
+          quantity.qteEndomage == null ? 0 : parseInt(quantity.qteEndomage),
+        qteDefautEmbalage:
+          quantity.qteDefautEmbalage == null
+            ? 0
+            : parseInt(quantity.qteDefautEmbalage),
         attachementsEndomageFiles: attachements.attachementsEndomageFiles.length
           ? attachements.attachementsEndomageFiles
           : null,
@@ -167,7 +174,7 @@ export const DefautEmballage = ({
           <div>
             {" "}
             <input
-              className="  w-1/3 bg-gray-50 rounded-md px-2 py-2  focus:border-gray-500  border-gray-200 border-2 focus:border-gray-2000  outline-gray-300"
+              className="  w-full bg-gray-50 rounded-md px-2 py-2  focus:border-gray-500  border-gray-200 border-2 focus:border-gray-2000  outline-gray-300"
               value={quantity.qteDefautEmbalage}
               onChange={(e) => {
                 const re = /^[0-9\b]+$/;
